@@ -6,10 +6,10 @@
 int main()
 {
   int result;
-  char dir[50];
+  char dir[100];
 
   printf("Enter the directory name: ");
-  fgets(dir,50,stdin);	//gets function giving warning, this will resolve
+  fgets(dir,100,stdin);	//gets function giving warning, this will resolve
 
   result = rmdir(dir);
   if (result != 0)
