@@ -9,7 +9,7 @@ int main()
   char dir[50];
 
   printf("Enter the directory name: ");
-  gets(dir);
+  fgets(dir,50,stdin);	//gets function giving warning, this will resolve
 
   result = rmdir(dir);
   if (result != 0)
