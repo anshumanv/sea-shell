@@ -32,18 +32,21 @@ char * changeDir(char * args[]){
 	temp = concat(temp, "/");
 	temp = concat(temp, args[1]);
 	//If directory doesn't exist, exit the function with error message
-	if(chdir(temp) == -1 && args[1] != "-"){
+	if(chdir(temp) == -1 && strcmp(args[1], "-")!=0){
 		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);
 		return buff;
 	}
 	//If user just types 'cd', go to home directory
-	if(args[1] == NULL){
+	if(args[1] == ""){
 		currdir = "/home/ubuntu";
+		chdir(currdir);
 		return currdir;
 	}
 	
 	//If '-' return previous directory
-	if(args[1] == "-"){
+	if(strcmp(args[1], "-")==0){
+		chdir(prevDir);
+		currdir = prevDir;
 		return prevDir;
 	}else{
 		prevDir = storePreviousDirectory(currdir);
@@ -53,10 +56,3 @@ char * changeDir(char * args[]){
 	return currdir;
 }
 
-//Tester main (need to initialize global variables)
-void main(){
-	currdir = (char *)malloc(100*sizeof(char));
-	currdir = "/home/ubuntu";
-	prevDir = (char *)malloc(100*sizeof(char));
-	strcpy(prevDir, currdir);
-}
