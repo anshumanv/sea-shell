@@ -2,6 +2,11 @@
 #include <string.h>
 #include "pwd.c"
 
+//Global Variables
+char * currdir = NULL;
+char * prevDir = NULL;
+
+
 int main() {
 	
 	//Parent loop for our shell
