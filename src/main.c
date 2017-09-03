@@ -6,17 +6,26 @@ int main() {
 	
 	//Parent loop for our shell
 	while(1) {
+		
 		printf("%s", "myshell$ > ");		// Printing shell name in each iteration
+		
+		// input command string
 		char * ipcmd = (char *)malloc(100 * sizeof(char));
+		
+		// input command name and params
 		char * cmdParams[2];
 		fgets(ipcmd, 100, stdin);
+		
+		// remove trailing whitespaces
 		ipcmd = strtok(ipcmd, "\n");
 		char *token = strtok(ipcmd, " ");
-		for(int i = 0; i < 2; i++){
-		cmdParams[i] = strdup(token);
 		
-		if(strtok(NULL, " ") == NULL{break;}
-			token = strtok(NULL, " ");
+		// storing command name and params 
+		for(int i = 0; i < 2; i++){
+			cmdParams[i] = strdup(token);
+		
+			if(strtok(NULL, " ") == NULL){break;}
+				token = strtok(NULL, " ");
 		}
 		
 		// when input command is ls
