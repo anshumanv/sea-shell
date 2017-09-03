@@ -32,7 +32,7 @@ int main() {
 		char *token = strtok(ipcmd, " ");
 		
 		// storing command name and params 
-		for(int i = 0; i < 2; i++){
+		for(int i = 0; i < r+1; i++){
 			cmdParams[i] = strdup(token);
 			token = strtok(NULL, " ");
 		}
