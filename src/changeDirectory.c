@@ -36,12 +36,6 @@ char * changeDir(char * args[]){
 		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);
 		return buff;
 	}
-	//If user just types 'cd', go to home directory
-	if(args[1] == ""){
-		currdir = "/home/ubuntu";
-		chdir(currdir);
-		return currdir;
-	}
 	
 	//If '-' return previous directory
 	if(strcmp(args[1], "-")==0){
@@ -50,6 +44,14 @@ char * changeDir(char * args[]){
 		return prevDir;
 	}else{
 		prevDir = storePreviousDirectory(currdir);
+	}
+	
+	
+	//If user just types 'cd', go to home directory
+	if(args[1] == ""){
+		currdir = "/home/ubuntu";
+		chdir(currdir);
+		return currdir;
 	}
 	
 	currdir = temp;	//If the given path is valid, update the currdir path.
