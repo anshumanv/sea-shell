@@ -8,10 +8,14 @@ char * prevDir = NULL;
 
 
 int main() {
-	
+	currdir = (char *)malloc(100*sizeof(char));
+	currdir = "/home/ubuntu";
+	prevDir = (char *)malloc(100*sizeof(char));
+	strcpy(prevDir, currdir);
+	chdir(currdir);
 	//Parent loop for our shell
 	while(1) {
-		
+		int r = 0;
 		printf("%s", "myshell$ > ");		// Printing shell name in each iteration
 		
 		// input command string
@@ -19,18 +23,23 @@ int main() {
 		
 		// input command name and params
 		char * cmdParams[2];
+		cmdParams[0] = "";
+		cmdParams[1] = "";
 		fgets(ipcmd, 100, stdin);
 		
 		// remove trailing whitespaces
 		ipcmd = strtok(ipcmd, "\n");
+		for(int j = 0; j<strlen(ipcmd); j++){
+			if (ipcmd[j] == ' '){
+				r = 1;
+			}
+		}
 		char *token = strtok(ipcmd, " ");
 		
 		// storing command name and params 
-		for(int i = 0; i < 2; i++){
+		for(int i = 0; i < r+1; i++){
 			cmdParams[i] = strdup(token);
-		
-			if(strtok(NULL, " ") == NULL){break;}
-				token = strtok(NULL, " ");
+			token = strtok(NULL, " ");
 		}
 		
 		// when input command is ls
@@ -41,6 +50,7 @@ int main() {
 		// when input command is cd
 		else if (strcmp(cmdParams[0], "cd") == 0) {
 			// code for cd
+			printf("%s\n", changeDir(cmdParams));
 		}
 		
 		// when input command is mkdir
@@ -59,6 +69,7 @@ int main() {
 			puts(path);
 		}
 		
+		r = 0;
 		
 	}
 	
