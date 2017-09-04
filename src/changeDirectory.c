@@ -46,6 +46,18 @@ char * changeDir(char * args[]){
 		prevDir = storePreviousDirectory(currdir);
 	}
 	
+	if(strcpm(args[1]),"..")==0){
+    int l=strlen(currdir); 
+    int i;
+		
+  for(i=l-1;currdir[i]!='/';i--)
+   {
+                currdir[i]='\0';
+   } 
+             currdir[i]='\0';  
+             fprintf(stdout, "Current working dir: %s\n", currdir);                     
+   }
+       
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
