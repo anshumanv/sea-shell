@@ -18,6 +18,11 @@ char * currdir = NULL;
 char * prevDir = NULL;
 
 
+//Global Variables
+char * currdir = NULL;
+char * prevDir = NULL;
+
+
 int main() {
 	currdir = (char *)malloc(100*sizeof(char));
 	currdir = "/home/ubuntu";
@@ -40,6 +45,7 @@ int main() {
 		
 		// remove trailing whitespaces
 		ipcmd = strtok(ipcmd, "\n");
+
 		int j;
 		for( j = 0; j<strlen(ipcmd); j++){
 			if (ipcmd[j] == ' '){
@@ -62,8 +68,7 @@ int main() {
 		
 		// when input command is cd
 		else if (strcmp(cmdParams[0], "cd") == 0) {
-			// code for cd
-			//printf("%s\n", changeDir(cmdParams));
+			printf("%s\n", changeDir(cmdParams));
 		}
 		
 		// when input command is mkdir
