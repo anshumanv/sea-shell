@@ -1,20 +1,10 @@
-#include<stdio.h> 
-#include<stdlib.h> 
-#include <sys/types.h> 
-#include <dirent.h> 
-#include <sys/stat.h> 
-#include <unistd.h> 
-#include <fcntl.h> 
-#include <sys/ioctl.h> 
-
-
 // Define the color codes as macros 
 #define RESET_COLOR "\e[m" 
 #define MAKE_GREEN "\e[32m" 
 #define MAKE_BLUE "\e[36m" 
 
 
-int main(void) 
+void ls()
 { 
 	char *curr_dir = NULL; 
 	DIR *dp = NULL; 
@@ -31,14 +21,14 @@ int main(void)
 	if(NULL == curr_dir) 
 	{ 
 			printf("\n ERROR : Could not get the working directory\n"); 
-			return -1; 
+
 	} 
 
 	dp = opendir((const char*)curr_dir);    
 	if(NULL == dp) 
 	{ 
 			printf("\n ERROR : Could not open the working directory\n"); 
-			return -1; 
+
 	} 
 
 	for(count = 0; NULL != (dptr = readdir(dp)); count++) 
@@ -55,7 +45,7 @@ int main(void)
 							if(-1 == fd) 
 							{ 
 									printf("\n Opening file/Directory failed\n"); 
-									return -1; 
+
 							} 
 
 							fstat(fd, &st); 
@@ -84,5 +74,5 @@ int main(void)
 	} 
 	printf("\n"); 
 
-	return 0; 
+
 }
