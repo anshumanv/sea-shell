@@ -1,6 +1,22 @@
+// importing in-built libraries
 #include <stdio.h>
 #include <string.h>
+#include<stdlib.h> 
+#include <sys/types.h> 
+#include <dirent.h> 
+#include <sys/stat.h> 
+#include <unistd.h> 
+#include <fcntl.h> 
+#include <sys/ioctl.h> 
+
+// importing self-made libs 
 #include "pwd.c"
+#include "ls.c"
+
+//Global Variables
+char * currdir = NULL;
+char * prevDir = NULL;
+
 
 //Global Variables
 char * currdir = NULL;
@@ -29,7 +45,9 @@ int main() {
 		
 		// remove trailing whitespaces
 		ipcmd = strtok(ipcmd, "\n");
-		for(int j = 0; j<strlen(ipcmd); j++){
+
+		int j;
+		for( j = 0; j<strlen(ipcmd); j++){
 			if (ipcmd[j] == ' '){
 				r = 1;
 			}
@@ -37,19 +55,19 @@ int main() {
 		char *token = strtok(ipcmd, " ");
 		
 		// storing command name and params 
-		for(int i = 0; i < r+1; i++){
+		int i;
+		for(i = 0; i < r+1; i++){
 			cmdParams[i] = strdup(token);
 			token = strtok(NULL, " ");
 		}
 		
 		// when input command is ls
 		if (strcmp(cmdParams[0], "ls") == 0) {
-			// code for ls
+			ls();
 		}
 		
 		// when input command is cd
 		else if (strcmp(cmdParams[0], "cd") == 0) {
-			// code for cd
 			printf("%s\n", changeDir(cmdParams));
 		}
 		
