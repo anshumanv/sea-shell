@@ -1,8 +1,3 @@
-#include<stdio.h>
-#include<unistd.h>
-#include<string.h>
-#include<stdlib.h>
-
 //Global Variables
 char * currdir = NULL;
 char * prevDir = NULL;
