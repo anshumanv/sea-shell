@@ -42,17 +42,17 @@ char * changeDir(char * args[]){
 	}
 	
 	
-	//If user types (cd ..) then return  to the previous directory
+	//If user types (cd ..) then return to the previous directory
 	if(strcmp(args[1],"..")==0){
-    int l=strlen(currdir); 
-    int i;
- for(i=l-1;currdir[i]!='/';i--){
-   currdir[i]='\0';
-   } 
-    currdir[i]='\0';  
-    return currdir;                         
-   }
-       
+		int l=strlen(currdir); 
+		int i;
+		for(i=l-1;currdir[i]!='/';i--){
+			currdir[i]='\0';
+		} 
+		currdir[i]='\0';  
+		return currdir;                         
+	}
+
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
