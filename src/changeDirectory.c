@@ -54,7 +54,8 @@ char * changeDir(char * args[]){
  for(i=l-1;currdir[i]!='/';i--){
    currdir[i]='\0';
    } 
-    currdir[i]='\0';  
+    currdir[i]='\0'; 
+		chdir(currdir);
     return currdir;                         
    }
        
