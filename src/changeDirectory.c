@@ -48,7 +48,7 @@ char * changeDir(char * args[]){
 	
 	
 	//If user types (cd ..) then return  to the previous directory
-	if(strcpm(args[1]),"..")==0){
+	if(strcmp(args[1],"..")==0){
     int l=strlen(currdir); 
     int i;
  for(i=l-1;currdir[i]!='/';i--){
