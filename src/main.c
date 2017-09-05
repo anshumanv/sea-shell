@@ -18,14 +18,14 @@ char * currdir = NULL;
 char * prevDir = NULL;
 
 
-//Global Variables
-char * currdir = NULL;
-char * prevDir = NULL;
-
-
 int main() {
+	char * cmd = (char *)malloc(100 * sizeof(char));
+  cmd = "HOME";
+  chdir(getenv(cmd));	//Changes directory to generic home path
+  char * path = (char *)malloc(100 * sizeof(char));
+  getcwd(path, 100); //Get the home directory and store it in path
 	currdir = (char *)malloc(100*sizeof(char));
-	currdir = "/home/ubuntu";
+	strcpy(currdir, path);
 	prevDir = (char *)malloc(100*sizeof(char));
 	strcpy(prevDir, currdir);
 	chdir(currdir);
