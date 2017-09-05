@@ -1,22 +1,19 @@
 // importing in-built libraries
 #include <stdio.h>
 #include <string.h>
-#include<stdlib.h> 
+#include <stdlib.h> 
 #include <sys/types.h> 
 #include <dirent.h> 
 #include <sys/stat.h> 
 #include <unistd.h> 
 #include <fcntl.h> 
 #include <sys/ioctl.h> 
-#include "changeDirectory.c"
 
 // importing self-made libs 
 #include "pwd.c"
 #include "ls.c"
+#include "changeDirectory.c"
 
-//Global Variables
-char * currdir = NULL;
-char * prevDir = NULL;
 
 
 int main() {
@@ -64,7 +61,7 @@ int main() {
 		
 		// when input command is ls
 		if (strcmp(cmdParams[0], "ls") == 0) {
-			ls();
+			ls(currdir);
 		}
 		
 		// when input command is cd
