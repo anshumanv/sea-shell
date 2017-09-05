@@ -61,8 +61,8 @@ char * changeDir(char * args[]){
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
-		currdir = "/home/ubuntu";
-		chdir(currdir);
+		chdir(getenv("HOME"));
+		getcwd(currdir, 100);
 		return currdir;
 	}
 	
