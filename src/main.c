@@ -8,6 +8,7 @@
 #include <unistd.h> 
 #include <fcntl.h> 
 #include <sys/ioctl.h> 
+#include "changeDirectory.c"
 
 // importing self-made libs 
 #include "pwd.c"
