@@ -32,6 +32,13 @@ char * changeDir(char * args[]){
 		return buff;
 	}
 	
+	//If directory  exist, get to the this directory
+	if(chdir(temp) == 0){
+	currdir=temp;
+	return currdir;
+	}  
+
+	
 	//If '-' return previous directory
 	if(strcmp(args[1], "-")==0){
 		chdir(prevDir);
