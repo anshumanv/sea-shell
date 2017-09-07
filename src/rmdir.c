@@ -1,10 +1,3 @@
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <ftw.h>
-#include <dirent.h>
-#include <string.h>
-
 int remove_directory(const char *path){
    DIR *d = opendir(path);
    size_t path_len = strlen(path);
@@ -40,18 +33,10 @@ int remove_directory(const char *path){
       }
       closedir(d);
    }
+
    if (!r){
       r = rmdir(path);
    }
 	return r;
-}
 
-
-int main(int argc, char *argv[3]){
-    
-    int d=remove_directory(argv[1]);
-    
-    if(d==0)
-    printf("Directory Successfully removed\n");
-    return 0;
 }
