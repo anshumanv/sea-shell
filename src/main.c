@@ -65,6 +65,11 @@ int main() {
 			ls(currdir);
 		}
 		
+		//when command is exit
+		else if(strcmp(cmdParams[0], "exit") == 0){
+			return -1;
+		}
+		
 		// when input command is cd
 		else if (strcmp(cmdParams[0], "cd") == 0) {
 			printf("%s\n", changeDir(cmdParams));
