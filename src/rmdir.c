@@ -21,6 +21,6 @@ int main()
   }
 
   printf("Directory removed successfully\n");
-
+	
   return 0;
 }
