@@ -4,6 +4,7 @@
 #include <stdlib.h> 
 #include <sys/types.h> 
 #include <dirent.h> 
+#include <ftw.h>
 #include <sys/stat.h> 
 #include <unistd.h> 
 #include <fcntl.h> 
@@ -13,7 +14,7 @@
 #include "pwd.c"
 #include "ls.c"
 #include "changeDirectory.c"
-
+#include "rmdir.c"
 
 
 int main() {
@@ -76,7 +77,14 @@ int main() {
 		
 		// when input command is rmdir
 		else if (strcmp(cmdParams[0], "rmdir") == 0) {
-			// when code is rmdir
+			int d=remove_directory(cmdParams[1]);
+    
+    	if(d==0)
+    		printf("Directory Successfully removed\n");
+			else
+				printf("Directory not found");
+
+			
 		}
 		
 		// when input command is pwd
