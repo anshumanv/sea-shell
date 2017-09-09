@@ -15,6 +15,7 @@
 #include "ls.c"
 #include "changeDirectory.c"
 #include "rmdir.c"
+#include "mkdir.c"
 
 
 int main() {
@@ -72,7 +73,7 @@ int main() {
 		
 		// when input command is mkdir
 		else if (strcmp(cmdParams[0], "mkdir") == 0) {
-			// code for mkdir
+	 		makedir(cmdParams[1]);
 		}
 		
 		// when input command is rmdir
