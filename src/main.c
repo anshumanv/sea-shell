@@ -71,7 +71,10 @@ int main() {
 		// when input command is ls
 		if (strcmp(cmdParams[0], "ls") == 0) {
 			if(strcmp(cmdParams[1], "-l") == 0){
-				lsdetailed(currdir);
+				lsdetailed(currdir, 0);
+			}
+			else if(strcmp(cmdParams[1], "-a") == 0){
+				lsdetailed(currdir, 1);
 			}
 			else ls(currdir);
 		}
