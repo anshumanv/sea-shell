@@ -1,9 +1,14 @@
 // importing in-built libraries
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <sys/stat.h>      /* struct stat */
+#include <sys/types.h>     /* S_IFMT */
 #include <sys/types.h> 
-#include <dirent.h> 
+#include <dirent.h>
+#include <time.h>          /* strftime, ctime */
+#include <pwd.h>           /* struc passwd (to retrieve user name) */
+#include <grp.h>           /* struc group (to retrieve group name) */ 
 #include <ftw.h>
 #include <sys/stat.h> 
 #include <unistd.h> 
@@ -16,7 +21,7 @@
 #include "changeDirectory.c"
 #include "rmdir.c"
 #include "mkdir.c"
-
+#include "lsdetailed.c"
 
 int main() {
 	char * cmd = (char *)malloc(100 * sizeof(char));
@@ -32,15 +37,16 @@ int main() {
 	//Parent loop for our shell
 	while(1) {
 		int r = 0;
-		printf("%s @ %s", print_working_directory(), "myshell$ > ");		// Printing shell name in each iteration
+		printf("%s @ %s", currdir, "myshell$ > ");		// Printing shell name in each iteration
 		
 		// input command string
 		char * ipcmd = (char *)malloc(100 * sizeof(char));
 		
 		// input command name and params
-		char * cmdParams[2];
+		char * cmdParams[3];
 		cmdParams[0] = "";
 		cmdParams[1] = "";
+		cmdParams[2] = "";
 		fgets(ipcmd, 100, stdin);
 		
 		// remove trailing whitespaces
@@ -49,7 +55,7 @@ int main() {
 		int j;
 		for( j = 0; j<strlen(ipcmd); j++){
 			if (ipcmd[j] == ' '){
-				r = 1;
+				r++;
 			}
 		}
 		char *token = strtok(ipcmd, " ");
@@ -61,9 +67,15 @@ int main() {
 			token = strtok(NULL, " ");
 		}
 		
+		/*for(i = 0; i<3; i++)
+			printf("%s", cmdParams[i]);*/
+		
 		// when input command is ls
 		if (strcmp(cmdParams[0], "ls") == 0) {
-			ls(currdir);
+			if(strcmp(cmdParams[1], "-l") == 0){
+				lsdetailed(currdir);
+			}
+			else ls(currdir);
 		}
 		
 		// when input command is cd
@@ -73,7 +85,7 @@ int main() {
 		
 		// when input command is mkdir
 		else if (strcmp(cmdParams[0], "mkdir") == 0) {
-	 		makedir(cmdParams[1]);
+	 		makedir(cmdParams);
 		}
 		
 		// when input command is rmdir
@@ -83,15 +95,14 @@ int main() {
     	if(d==0)
     		printf("Directory Successfully removed\n");
 			else
-				printf("Directory not found");
+				printf("Directory not found\n");
 
 			
 		}
 		
 		// when input command is pwd
 		else if (strcmp(cmdParams[0], "pwd") == 0) {
-			char *path = print_working_directory();
-			puts(path);
+			printf("%s\n", currdir);
 		}
 		
 		else if (strcmp(cmdParams[0], "exit") == 0) {
