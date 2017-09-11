@@ -32,7 +32,7 @@ int main() {
 	//Parent loop for our shell
 	while(1) {
 		int r = 0;
-		printf("%s", "myshell$ > ");		// Printing shell name in each iteration
+		printf("%s @ %s", print_working_directory(), "myshell$ > ");		// Printing shell name in each iteration
 		
 		// input command string
 		char * ipcmd = (char *)malloc(100 * sizeof(char));
@@ -68,7 +68,7 @@ int main() {
 		
 		// when input command is cd
 		else if (strcmp(cmdParams[0], "cd") == 0) {
-			printf("%s\n", changeDir(cmdParams));
+			changeDir(cmdParams);
 		}
 		
 		// when input command is mkdir
@@ -93,6 +93,12 @@ int main() {
 			char *path = print_working_directory();
 			puts(path);
 		}
+		
+		else if (strcmp(cmdParams[0], "exit") == 0) {
+			return 0;
+		}
+		
+		else printf("%s", "Invalid Command !\n");
 		
 		r = 0;
 		
