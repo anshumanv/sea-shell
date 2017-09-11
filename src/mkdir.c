@@ -1,25 +1,75 @@
-void makedir(char* argv[]) { 	
-	if(strcmp(argv[1],"-v")==0){	
-		const int dir_err = mkdir(argv[2] ,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);	
-   		if (-1 == dir_err) {
-			perror("Error creating directory!\n");
-    	    } 
-		else {
-		        printf("File directory %s successfully!\n",argv[2]);	
-			}
+int rm(char *path){   		// "path"- parameter passing for directory to be removed
+   DIR *d = opendir(path);  		// Move to the desired path to remove directory
+   size_t path_len = strlen(path);  // length of path
+   int r = -1;  					// Status variable 
+   if (d){    						// if the path exists
+      struct dirent *p;
+      r = 0;   							// Status variable
+      while (!r && (p=readdir(d))){    //  execute the loop until the directory isn't empty 
+          int r2 = -1;  
+          char *buf; 					// storing and updating the current path in this variable
+          size_t len;
+
+
+          if (!strcmp(p->d_name, ".") || !strcmp(p->d_name, "..")){   // Check for "." & ".." files ; if found, continue
+             continue;  // don't remove the above files
+          }
+          len = path_len + strlen(p->d_name) + 2;  //  
+          buf = malloc(len);  // Allocate memory at runtime
+          if (buf){          // If block statement for checking and deleting file/directory
+             struct stat statbuf;
+             snprintf(buf, len, "%s/%s", path, p->d_name);
+             if (!stat(buf, &statbuf)){
+                if (S_ISDIR(statbuf.st_mode)){    // Check for directory
+                   r2 = rm(buf);    // remove directory
+                }
+                else{
+                   r2 = unlink(buf);    // unlink command for deleting files
+                }
+             }
+             free(buf);     // Free the allocated memory so as it can be used the next time the rmdir command is executed
+          }
+          r = r2;  // updating the status variable
+      }
+      closedir(d);  //trace back to the original path
+   }
+
+   if (!r){
+      r = rmdir(path);    // if r!=0 or the outermost directory hasn't been deleted, remove it  
+   }
+	return r;
+}
+
+void remove_directory(char * argv[]) { 	
+    if(strcmp(argv[1],"-r")==0){
+	int d=rm(argv[2]);
+    	if(d!=0)
+		perror("Directory not found\n");
+	}
+
+	else if(strcmp(argv[1],"-v")==0){	
+		DIR *d = opendir(argv[2]);
+    	int ret=remove(argv[2]);
+     	if( ret != 0 )
+     	perror( "Error deleting file" );
+    	else
+     	printf( "Directory %s successfully deleted\n", argv[2] );	
+   		
     } 
 	
-	if(strcmp(argv[1],"-p")==0){	
-		const int dir_err = mkdir(argv[2] ,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);	
-   		if (-1 == dir_err) {
-			perror("Error creating directory!\n");
-    	    } 
-    } 
+	else if(strcmp(argv[1],"-p")==0){	
+		DIR *d = opendir(argv[2]);
+    	int ret=remove(argv[2]);
+    	if( ret != 0 )
+     	perror( "Error deleting file" );
+	} 
 	
-	else{	
-			const int dir_err = mkdir(argv[1] ,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);	
-   			if (-1 == dir_err) {
-			perror("Error creating directory!\n");
-    	    } 
+	
+	
+	else{
+		DIR *d  = opendir(argv[1]);
+ 		int ret = remove(argv[1]);
+    	if( ret != 0 )
+    	perror( "Error deleting file" );
     } 
 }
