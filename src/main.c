@@ -4,13 +4,11 @@
 #include <stdlib.h>
 #include <sys/stat.h>      /* struct stat */
 #include <sys/types.h>     /* S_IFMT */
-#include <sys/types.h> 
 #include <dirent.h>
 #include <time.h>          /* strftime, ctime */
 #include <pwd.h>           /* struc passwd (to retrieve user name) */
 #include <grp.h>           /* struc group (to retrieve group name) */ 
 #include <ftw.h>
-#include <sys/stat.h> 
 #include <unistd.h> 
 #include <fcntl.h> 
 #include <sys/ioctl.h> 
@@ -90,14 +88,7 @@ int main() {
 		
 		// when input command is rmdir
 		else if (strcmp(cmdParams[0], "rmdir") == 0) {
-			int d=remove_directory(cmdParams[1]);
-    
-    	if(d==0)
-    		printf("Directory Successfully removed\n");
-			else
-				printf("Directory not found\n");
-
-			
+			remove_directory(cmdParams);
 		}
 		
 		// when input command is pwd
