@@ -11,7 +11,7 @@ char * error_msg[] = {
  
 void print_error(int msg_num, int exit_code);
  
-int lsdetailed(char * path)
+int lsdetailed(char * path, int flag)
 {
        int i;      		                   /* A counter */
        char msg[MAX_MSG_LEN] = "";       /* A temporary string */
@@ -40,7 +40,10 @@ int lsdetailed(char * path)
               /* Loop through sorted current working directory and display each file
               name till all the entries are exhausted */
               for ( i = 0; i < num_entries; i++ )
-              {
+              {	
+					char * fname = dir_entry[i]->d_name;
+					if(fname[0] == '.' && !flag)
+						continue;
                      /* Retrieve the file details */
                      if (lstat(dir_entry[i]->d_name,&file_details) < 0)
                            print_error(3,5);
