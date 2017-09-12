@@ -53,6 +53,10 @@ char * changeDir(char * args[]){
 		return currdir;                         
 	}
 
+	// handle case for cd .
+	if(strcmp(args[1], ".") == 0)
+		return currdir;
+
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
