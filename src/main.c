@@ -22,17 +22,30 @@
 #include "lsdetailed.c"
 #include "trim.c"
 
+
+// center of the universe
 int main() {
+
+	// var to store default dir
 	char * cmd = (char *)malloc(100 * sizeof(char));
-  cmd = "HOME";
-  chdir(getenv(cmd));	//Changes directory to generic home path
-  char * path = (char *)malloc(100 * sizeof(char));
-  getcwd(path, 100); //Get the home directory and store it in path
+	cmd = "HOME";
+	
+	// changing to default dir
+	chdir(getenv(cmd));	//Changes directory to generic home path
+	
+	char * path = (char *)malloc(100 * sizeof(char));
+	getcwd(path, 100); //Get the home directory and store it in path
+	
+	// variable to store current path throughout the program
 	currdir = (char *)malloc(100*sizeof(char));
+	
 	strcpy(currdir, path);
+	
 	prevDir = (char *)malloc(100*sizeof(char));
+	
 	strcpy(prevDir, currdir);
 	chdir(currdir);
+	
 	//Parent loop for our shell
 	while(1) {
 		int r = 0;
@@ -66,6 +79,7 @@ int main() {
 			token = strtok(NULL, " ");
 		}
 		
+		// test print to verify cmdParams
 		/*for(i = 0; i<3; i++)
 			printf("%s", cmdParams[i]);*/
 		

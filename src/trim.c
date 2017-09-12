@@ -1,3 +1,5 @@
+// help taken from StackOverflow to trim whitespaces on both ends in a string
+
 char *trim(char *str)
 {
     size_t len = 0;
@@ -29,10 +31,9 @@ char *trim(char *str)
      * of endp to mean the front of the string buffer now.
      */
     endp = str;
-    if( frontp != str )
-    {
-            while( *frontp ) { *endp++ = *frontp++; }
-            *endp = '\0';
+    if( frontp != str ){
+		while( *frontp ) { *endp++ = *frontp++; }
+		*endp = '\0';
     }
 
 

@@ -1,3 +1,5 @@
+// Comprehensive function to force delete a directory by unlinking it's contents
+
 int rm(char *path){   		// "path"- parameter passing for directory to be removed
    DIR *d = opendir(path);  		// Move to the desired path to remove directory
    size_t path_len = strlen(path);  // length of path
@@ -40,36 +42,40 @@ int rm(char *path){   		// "path"- parameter passing for directory to be removed
 	return r;
 }
 
+
+// function to remove directory with tags handling
 void remove_directory(char * argv[]) { 	
-    if(strcmp(argv[1],"-r")==0){
-	int d=rm(argv[2]);
-    	if(d!=0)
+
+	// when -r is passed as tag, force delete
+	if(strcmp(argv[1],"-r")==0){
+		int d=rm(argv[2]);
+		if(d!=0)
 		perror("Directory not found\n");
 	}
 
+	// -v is being passed as tag
 	else if(strcmp(argv[1],"-v")==0){	
 		DIR *d = opendir(argv[2]);
-    	int ret=remove(argv[2]);
-     	if( ret != 0 )
-     	perror( "Error deleting file" );
-    	else
-     	printf( "Directory %s successfully deleted\n", argv[2] );	
-   		
+		int ret=remove(argv[2]);
+		if( ret != 0 )
+		perror( "Error deleting file" );
+		else
+		printf( "Directory %s successfully deleted\n", argv[2] );	 		
     } 
 	
+	// -p is passed  as tag
 	else if(strcmp(argv[1],"-p")==0){	
 		DIR *d = opendir(argv[2]);
-    	int ret=remove(argv[2]);
-    	if( ret != 0 )
-     	perror( "Error deleting file" );
+		int ret=remove(argv[2]);
+		if( ret != 0 )
+		perror( "Error deleting file" );
 	} 
 	
-	
-	
+	// default execution i.e no tags
 	else{
 		DIR *d  = opendir(argv[1]);
- 		int ret = remove(argv[1]);
-    	if( ret != 0 )
-    	perror( "Error deleting file" );
-    } 
+		int ret = remove(argv[1]);
+		if( ret != 0 )
+			perror( "Error deleting file" );
+	} 
 }

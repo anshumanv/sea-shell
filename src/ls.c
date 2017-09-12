@@ -3,9 +3,10 @@
 #define MAKE_GREEN "\e[32m" 
 #define MAKE_BLUE "\e[36m" 
 
-
+// function to list files/directories in the current directory
 void ls(char* currdir)
-{ 
+{	
+	// variables to hold current directory, DIR pointer, dirent structs and a counter
 	char *curr_dir = NULL; 
 	DIR *dp = NULL; 
 	struct dirent *dptr = NULL; 
@@ -27,6 +28,8 @@ void ls(char* currdir)
 		printf("\n ERROR : Could not open the working directory\n"); 
 	} 
 
+
+	// execute till dptr is reading the current directory
 	for(count = 0; NULL != (dptr = readdir(dp)); count++) { 
 		if(dptr->d_name[0] != '.') { 
 			// Check if the file is executable 
@@ -43,16 +46,14 @@ void ls(char* currdir)
 				fstat(fd, &st); 
 				// Check if it actaully was a directory with execute 
 				// permissions on it. 
-				if(S_ISDIR(st.st_mode)) 
-				{ 
-						// If it was a directory, print it in Blue 
-						printf(MAKE_BLUE"%s     "RESET_COLOR,dptr->d_name); 
+				if(S_ISDIR(st.st_mode)) { 
+					// If it was a directory, print it in Blue 
+					printf(MAKE_BLUE"%s     "RESET_COLOR,dptr->d_name); 
 				} 
-				else 
-				{                                   
-						// If it was a normal executable 
-						// Print it in green 
-						printf(MAKE_GREEN"%s     "RESET_COLOR,dptr->d_name); 
+				else {            
+					// If it was a normal executable 
+					// Print it in green 
+					printf(MAKE_GREEN"%s     "RESET_COLOR,dptr->d_name); 
 				} 
 				close(fd); 
 			} 
