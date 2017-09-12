@@ -20,6 +20,7 @@
 #include "rmdir.c"
 #include "mkdir.c"
 #include "lsdetailed.c"
+#include "trim.c"
 
 int main() {
 	char * cmd = (char *)malloc(100 * sizeof(char));
@@ -47,9 +48,9 @@ int main() {
 		cmdParams[2] = "";
 		fgets(ipcmd, 100, stdin);
 		
-		// remove trailing whitespaces
+		// remove whitespaces
 		ipcmd = strtok(ipcmd, "\n");
-
+		trim(ipcmd);
 		int j;
 		for( j = 0; j<strlen(ipcmd); j++){
 			if (ipcmd[j] == ' '){
