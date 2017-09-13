@@ -4,14 +4,12 @@
 
 ### Operating Systems : Mini Project
 
-Project Members :-
+#### Run
 
-* Anshuman Verma
-* Shivam Saboo
-* Aman Yadav
-* Khilan Ravani
-* Mayank Pathela
-* Nikhil Sachan
-* Suchandra
-* Subhash
-* Rashmi 
+```bash
+$ git clone https://github.com/anshumanv/sea-shell
+$ cd sea-shell/src
+$ gcc main.c
+$ ./a.out
+```
+Then type the required commands.
