@@ -12,9 +12,9 @@ void ls(char* currdir)
 	struct dirent *dptr = NULL; 
 	unsigned int count = 0; 
 
-	// Find the column width of terminal 
-	// We will make use of this in part-II  
-	// Of this article. 
+	// winsize : window attributes
+	// FILENO : file number
+	// GWINSZ : get window size and passed w's address
 	struct winsize w; 
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w); 
 
@@ -33,17 +33,21 @@ void ls(char* currdir)
 	for(count = 0; NULL != (dptr = readdir(dp)); count++) { 
 		if(dptr->d_name[0] != '.') { 
 			// Check if the file is executable 
-			if(!access(dptr->d_name,X_OK)) { 
-				int fd = -1; 
+			if(!access(dptr->d_name,X_OK)) { // X_OK : file read successfully
+				int fd = -1;
+				// stat struct to handle file properties
 				struct stat st; 
-
+				
+				// open in read-only with no permissions
 				fd = open(dptr->d_name, O_RDONLY, 0); 
 				if(-1 == fd) { 
 						printf("\n Opening file/Directory failed\n"); 
 
 				} 
-
-				fstat(fd, &st); 
+				
+				// if file is read successfully write file attributes in st
+				fstat(fd, &st);
+				
 				// Check if it actaully was a directory with execute 
 				// permissions on it. 
 				if(S_ISDIR(st.st_mode)) { 
