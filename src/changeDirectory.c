@@ -6,12 +6,13 @@ char * prevDir = NULL;
 //Function to store previously opened path
 char * storePreviousDirectory(char * dir){
 	char * previous = (char * )malloc(100*sizeof(char));
-	strcpy(previous, dir);
+	strcpy(previous, dir);	//stores previous path in previous variable
 	return previous;
 }
 
 
 //Funtion to concat two strings by efficiently allocating required memory.
+//The normal concat function in C giving segmentation fault hence this function.
 char * concat(const char *s1, const char *s2) {
 	char *result = malloc(strlen(s1) + strlen(s2) + 1);
 	strcpy(result, s1);
@@ -24,11 +25,11 @@ char * changeDir(char * args[]){
 	char * buff = (char *)malloc(100*sizeof(char));	//Buffer to send error message  if the directory doesn't exist.
 	char * temp = (char *)malloc(100*sizeof(char));	//Temporarily stores value of current directory.
 	strcpy(temp, currdir);
-	temp = concat(temp, "/");
+	temp = concat(temp, "/"); 
 	temp = concat(temp, args[1]);
 	//If directory doesn't exist, exit the function with error message
 	if(chdir(temp) == -1 && strcmp(args[1], "-")!=0){
-		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);
+		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);//Prints the error message into buff and return.
 		return buff;
 	}
 	
@@ -43,6 +44,7 @@ char * changeDir(char * args[]){
 	
 	
 	//If user types (cd ..) then return to the previous directory
+	//Iterates upto previous '/' chatacter in the string to return the previous path
 	if(strcmp(args[1],"..")==0){
 		int l=strlen(currdir); 
 		int i;
@@ -60,7 +62,7 @@ char * changeDir(char * args[]){
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
-		chdir(getenv("HOME"));
+		chdir(getenv("HOME"));//Returns the root path
 		getcwd(currdir, 100);
 		return currdir;
 	}
