@@ -1,11 +1,11 @@
 //Global Variables
-char * currdir = NULL;
-char * prevDir = NULL;
+char * currdir = NULL; //Stores current directory -> USED THROUGHOUT THE CODE
+char * prevDir = NULL;// Stores previous directory
 
 
 //Function to store previously opened path
 char * storePreviousDirectory(char * dir){
-	char * previous = (char * )malloc(100*sizeof(char));
+	char * previous = (char * )malloc(100*sizeof(char));//Memory allocation
 	strcpy(previous, dir);	//stores previous path in previous variable
 	return previous;
 }
@@ -28,12 +28,14 @@ char * changeDir(char * args[]){
 	temp = concat(temp, "/"); 
 	temp = concat(temp, args[1]);
 	//If directory doesn't exist, exit the function with error message
+	//Also we must check that the user is not calling "cd -" because that returns the previously opened directory
 	if(chdir(temp) == -1 && strcmp(args[1], "-")!=0){
-		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);//Prints the error message into buff and return.
+		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);//Puts the error message into buff and return but doesn't print.
 		return buff;
 	}
 	
 	//If '-' return previous directory
+	//else store this path in previous directory
 	if(strcmp(args[1], "-")==0){
 		chdir(prevDir);
 		currdir = prevDir;
@@ -55,14 +57,14 @@ char * changeDir(char * args[]){
 		return currdir;                         
 	}
 
-	// handle case for cd .
+	// returns the current directory
 	if(strcmp(args[1], ".") == 0)
 		return currdir;
 
 	
 	//If user just types 'cd', go to home directory
 	if(args[1] == ""){
-		chdir(getenv("HOME"));//Returns the root path
+		chdir(getenv("HOME"));//getenv returns the root path, hence we change the current path
 		getcwd(currdir, 100);
 		return currdir;
 	}
