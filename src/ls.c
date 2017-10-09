@@ -1,7 +1,7 @@
 // Define the color codes as macros 
-#define RESET_COLOR "\e[m" 
-#define MAKE_GREEN "\e[32m" 
-#define MAKE_BLUE "\e[36m" 
+#define RESET_COLOR "\e[m" // Restore default terminal text color
+#define MAKE_GREEN "\e[32m" // Green color for executables
+#define MAKE_BLUE "\e[36m" // Blue color for folders
 
 // function to list files/directories in the current directory
 void ls(char* currdir)
