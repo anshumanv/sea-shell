@@ -6,7 +6,7 @@ void makedir(char* argv[]) {
 			perror("Error creating directory!\n");                                    // -1 is returned by mkdir when directory 
     	    }                                                                     //is not created.    
 		else {                                                                    // perror handles the errors , if any.    
-		        printf("Directory %screated successfully!\n",argv[2]);	             
+		        printf("Directory %s created successfully!\n",argv[2]);	             
 			}                                                                           
     } 
 	
