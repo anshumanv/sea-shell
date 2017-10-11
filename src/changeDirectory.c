@@ -31,6 +31,7 @@ char * changeDir(char * args[]){
 	//Also we must check that the user is not calling "cd -" because that returns the previously opened directory
 	if(chdir(temp) == -1 && strcmp(args[1], "-")!=0){
 		snprintf(buff, 100, "The directory %s doesn't exists", args[1]);//Puts the error message into buff and return but doesn't print.
+		printf("The directory doesn't exist\n"); 
 		return buff;
 	}
 	
