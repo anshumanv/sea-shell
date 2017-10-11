@@ -1,3 +1,6 @@
+#include <stdlib.h>
+#include <unistd.h>
+
 // Method to print path of current directory
 char *print_working_directory() {
 
