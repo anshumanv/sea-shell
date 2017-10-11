@@ -22,7 +22,8 @@
 #include "mkdir.c"
 #include "lsdetailed.c"
 #include "trim.c"
-
+int l=-1;
+	
 
 // center of the universe
 int main() {
@@ -46,7 +47,7 @@ int main() {
 	
 	strcpy(prevDir, currdir);
 	chdir(currdir);
-	
+
 	//Parent loop for our shell
 	while(1) {
 		int r = 0;
@@ -56,7 +57,7 @@ int main() {
 		char * ipcmd = (char *)malloc(100 * sizeof(char));
 		
 		// input command name and params
-		char * cmdParams[3];
+		char * cmdParams[10];
 		cmdParams[0] = "";
 		cmdParams[1] = "";
 		cmdParams[2] = "";
@@ -69,6 +70,8 @@ int main() {
 		for( j = 0; j<strlen(ipcmd); j++){
 			if (ipcmd[j] == ' '){
 				r++;
+                                l++;
+
 			}
 		}
 		char *token = strtok(ipcmd, " ");
@@ -78,6 +81,7 @@ int main() {
 		for(i = 0; i < r+1; i++){
 			cmdParams[i] = strdup(token);
 			token = strtok(NULL, " ");
+
 		}
 		
 		// test print to verify cmdParams
@@ -102,7 +106,7 @@ int main() {
 		
 		// when input command is mkdir
 		else if (strcmp(cmdParams[0], "mkdir") == 0) {
-	 		makedir(cmdParams);
+	 		makedir(cmdParams,l);
 		}
 		
 		// when input command is rmdir
