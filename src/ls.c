@@ -27,8 +27,8 @@ void ls(char* currdir)
 	if(NULL == dp) { 
 		printf("\n ERROR : Could not open the working directory\n"); 
 	} 
-
-
+  else
+	{
 	// execute till dptr is reading the current directory
 	for(count = 0; NULL != (dptr = readdir(dp)); count++) { 
 		if(dptr->d_name[0] != '.') { 
@@ -70,5 +70,5 @@ void ls(char* currdir)
 	} 
 	printf("\n"); 
 
-
+	}
 }
