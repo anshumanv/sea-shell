@@ -3,15 +3,16 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>      /* struct stat */
-#include <sys/types.h>     /* S_IFMT */
-#include <dirent.h>
+#include <sys/types.h>     // S_IFMT  for octal file permissions
+#include <dirent.h>        // for directory permissions
 #include <time.h>          /* strftime, ctime */
 #include <pwd.h>           /* struc passwd (to retrieve user name) */
 #include <grp.h>           /* struc group (to retrieve group name) */ 
-#include <ftw.h>
-#include <unistd.h> 
-#include <fcntl.h> 
-#include <sys/ioctl.h> 
+#include <ftw.h>	   // for directory attributes and functions
+#include <unistd.h> 	   // standard library in linux for routine functions
+#include <fcntl.h> 	   //file descriptor attributes
+#include <sys/ioctl.h> 	   //for ioctl function in ls code. Basically used for window attributes.
+
 
 // importing self-made libs 
 #include "pwd.c"
@@ -86,12 +87,12 @@ int main() {
 		// when input command is ls
 		if (strcmp(cmdParams[0], "ls") == 0) {
 			if(strcmp(cmdParams[1], "-l") == 0){
-				lsdetailed(currdir, 0);
+				lsdetailed(currdir);
 			}
 			else if(strcmp(cmdParams[1], "-a") == 0){
-				lsdetailed(currdir, 1);
+				ls(currdir, 1);
 			}
-			else ls(currdir);
+			else ls(currdir, 0);
 		}
 		
 		// when input command is cd
