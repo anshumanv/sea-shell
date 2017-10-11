@@ -47,7 +47,7 @@ int rm(char *path){   		// "path"- parameter passing for directory to be removed
 void remove_directory(char * argv[]) { 	
 
 	// when -r is passed as tag, force delete
-	if(strcmp(argv[1],"-r")==0){
+	if(strcmp(argv[1],"-r")==0 && strcmp(argv[0],"rm")==0){
 		int d=rm(argv[2]);
 		if(d!=0)
 		perror("Directory not found\n");

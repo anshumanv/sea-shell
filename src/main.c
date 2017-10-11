@@ -109,6 +109,10 @@ int main() {
 		else if (strcmp(cmdParams[0], "rmdir") == 0) {
 			remove_directory(cmdParams);
 		}
+
+		else if (strcmp(cmdParams[0], "rm") == 0) {
+			remove_directory(cmdParams);
+		}
 		
 		// when input command is pwd
 		else if (strcmp(cmdParams[0], "pwd") == 0) {
